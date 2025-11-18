@@ -9,6 +9,11 @@
             font-family: Arial, sans-serif;
             background: #f0f0f0;
             padding: 20px;
+            text-align: center;
+        }
+        .logo {
+            width: 150px;
+            margin-bottom: 20px;
         }
         .product-box {
             background: white;
@@ -18,7 +23,7 @@
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             text-align: center;
         }
-        img {
+        img.product-img {
             width: 200px;
             height: 200px;
             object-fit: cover;
@@ -50,13 +55,14 @@
     </style>
 </head>
 <body>
+<img src="https://i.postimg.cc/gr75tNqN/Lidl-logo.png" class="logo" alt="Lidl Logo">
 <h1>Lidl – Zgadnij cenę</h1>
 <p>Każdy produkt ma 6 prób. Zgadnij cenę. Strzałki: ▲ za mało, ▼ za dużo.</p>
 
 <div id="products"></div>
 
-<button id="prevBtn" style="font-size:20px; padding:10px; margin-right:10px; display:none;">⬅️</button>
-<button id="nextBtn" style="font-size:20px; padding:10px; display:none;">➡️</button>
+<button id="prevBtn" style="font-size:20px; padding:10px; margin-right:10px; display:none;">⬅️ Poprzedni</button>
+<button id="nextBtn" style="font-size:20px; padding:10px; display:none;">➡️ Następny</button>
 
 <script>
 let arrowUp = "▲";
@@ -82,7 +88,7 @@ function renderProduct() {
     document.getElementById("products").innerHTML = `
         <div class='product-box'>
             <h2>${p.title}</h2>
-            <img src='${p.img}' alt='${p.title}'><br><br>
+            <img src='${p.img}' alt='${p.title}' class='product-img'><br><br>
             <span class='life' id='life'>${lives[index]}/6</span>
             <input id='input' type='number' step='0.01' placeholder='Podaj cenę'>
             <button onclick='checkPrice()'>Sprawdź</button>
