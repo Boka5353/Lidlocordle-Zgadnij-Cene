@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lidl – Zgadnij cenę (10 produktów)</title>
+    <title>Lidl – Zgadnij cenę</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -50,29 +50,28 @@
     </style>
 </head>
 <body>
-<h1>Lidl – Zgadnij cenę (10 produktów)</h1>
+<h1>Lidl – Zgadnij cenę</h1>
 <p>Każdy produkt ma 6 prób. Zgadnij cenę. Strzałki: ▲ za mało, ▼ za dużo.</p>
 
 <div id="products"></div>
 
-<button id="prevBtn" style="font-size:20px; padding:10px; margin-right:10px; display:none;">⬅️ Poprzedni</button>
-<button id="nextBtn" style="font-size:20px; padding:10px; display:none;">➡️ Następny</button>
+<button id="prevBtn" style="font-size:20px; padding:10px; margin-right:10px; display:none;">⬅️</button>
+<button id="nextBtn" style="font-size:20px; padding:10px; display:none;">➡️</button>
 
 <script>
 let arrowUp = "▲";
 let arrowDown = "▼";
 
 let items = [
-    {title: "Produkt 1", img: "https://i.postimg.cc/BLJxZ959/DSC-0178.jpg", price: 2.89},
-    {title: "Produkt 2", img: "https://i.postimg.cc/1Vtw6GY7/DSC-0182.jpg", price: 5.49},
-    {title: "Produkt 3", img: "https://i.postimg.cc/2L6hvQXc/DSC-0183.jpg", price: 9.99},
-    {title: "Produkt 4", img: "https://i.postimg.cc/Wq3grGfX/DSC-0187.jpg", price: 4.20},
-    {title: "Produkt 5", img: "https://i.postimg.cc/1nMDfCMT/DSC-0188.jpg", price: 7.30},
-    {title: "Produkt 6", img: "https://i.postimg.cc/XX7wTW7K/DSC-0191.jpg", price: 1.99},
-    {title: "Produkt 7", img: "https://i.postimg.cc/F1sj2vsp/DSC-0193.jpg", price: 3.10},
-    {title: "Produkt 8", img: "https://i.postimg.cc/xqTKWQTF/DSC-0194.jpg", price: 11.00},
-    {title: "Produkt 9", img: "https://i.postimg.cc/MXKyhwp2/DSC-0195.jpg", price: 6.40},
-    {title: "Produkt 10", img: "https://i.postimg.cc/fk2xsPVM/DSC-0197.jpg", price: 8.80},
+    {title: "Produkt 1", img: "https://i.postimg.cc/BLJxZ959/DSC-0178.jpg", price: 5.99},
+    {title: "Produkt 2", img: "https://i.postimg.cc/1Vtw6GY7/DSC-0182.jpg", price: 1.51},
+    {title: "Produkt 3", img: "https://i.postimg.cc/2L6hvQXc/DSC-0183.jpg", price: 3.99},
+    {title: "Produkt 4", img: "https://i.postimg.cc/Wq3grGfX/DSC-0187.jpg", price: 9.99},
+    {title: "Produkt 5", img: "https://i.postimg.cc/1nMDfCMT/DSC-0188.jpg", price: 2.59},
+    {title: "Produkt 6", img: "https://i.postimg.cc/xqTKWQTF/DSC-0194.jpg", price: 0.99},
+    {title: "Produkt 7", img: "https://i.postimg.cc/fk2xsPVM/DSC-0197.jpg", price: 4.39},
+    {title: "Produkt 8", img: "https://i.postimg.cc/Z07rmQWn/DSC-0199.jpg", price: 9.59},
+    {title: "Produkt 9", img: "https://i.postimg.cc/HVrbktM7/DSC-0205.jpg", price: 13.99}
 ];
 
 let index = 0;
