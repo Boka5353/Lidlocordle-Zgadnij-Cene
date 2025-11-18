@@ -1,1 +1,142 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lidl – Zgadnij cenę (10 produktów)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+        .product-box {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            width: 100%;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .life {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .result {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .history p { margin: 2px 0; }
+    </style>
+</head>
+<body>
+<h1>Lidl – Zgadnij cenę (10 produktów)</h1>
+<p>Każdy produkt ma 6 prób. Zgadnij cenę. Strzałki: ▲ za mało, ▼ za dużo.</p>
 
+<div id="products"></div>
+
+<button id="prevBtn" style="font-size:20px; padding:10px; margin-right:10px; display:none;">⬅️ Poprzedni</button>
+<button id="nextBtn" style="font-size:20px; padding:10px; display:none;">➡️ Następny</button>
+
+<script>
+let arrowUp = "▲";
+let arrowDown = "▼";
+
+let items = [
+    {title: "Produkt 1", img: "https://i.postimg.cc/BLJxZ959/DSC-0178.jpg", price: 2.89},
+    {title: "Produkt 2", img: "https://i.postimg.cc/1Vtw6GY7/DSC-0182.jpg", price: 5.49},
+    {title: "Produkt 3", img: "https://i.postimg.cc/2L6hvQXc/DSC-0183.jpg", price: 9.99},
+    {title: "Produkt 4", img: "https://i.postimg.cc/Wq3grGfX/DSC-0187.jpg", price: 4.20},
+    {title: "Produkt 5", img: "https://i.postimg.cc/1nMDfCMT/DSC-0188.jpg", price: 7.30},
+    {title: "Produkt 6", img: "https://i.postimg.cc/XX7wTW7K/DSC-0191.jpg", price: 1.99},
+    {title: "Produkt 7", img: "https://i.postimg.cc/F1sj2vsp/DSC-0193.jpg", price: 3.10},
+    {title: "Produkt 8", img: "https://i.postimg.cc/xqTKWQTF/DSC-0194.jpg", price: 11.00},
+    {title: "Produkt 9", img: "https://i.postimg.cc/MXKyhwp2/DSC-0195.jpg", price: 6.40},
+    {title: "Produkt 10", img: "https://i.postimg.cc/fk2xsPVM/DSC-0197.jpg", price: 8.80},
+];
+
+let index = 0;
+let lives = Array(items.length).fill(6);
+
+function renderProduct() {
+    let p = items[index];
+    document.getElementById("products").innerHTML = `
+        <div class='product-box'>
+            <h2>${p.title}</h2>
+            <img src='${p.img}' alt='${p.title}'><br><br>
+            <span class='life' id='life'>${lives[index]}/6</span>
+            <input id='input' type='number' step='0.01' placeholder='Podaj cenę'>
+            <button onclick='checkPrice()'>Sprawdź</button>
+            <div class='result' id='result'></div>
+            <div class='history' id='history'></div>
+        </div>
+    `;
+    document.getElementById('prevBtn').style.display = 'none';
+    document.getElementById('nextBtn').style.display = 'none';
+}
+
+renderProduct();
+
+document.getElementById("nextBtn").onclick = () => {
+    index = (index + 1) % items.length;
+    renderProduct();
+};
+
+document.getElementById("prevBtn").onclick = () => {
+    index = (index - 1 + items.length) % items.length;
+    renderProduct();
+};
+
+function checkPrice() {
+    let input = parseFloat(document.getElementById('input').value);
+    if (isNaN(input)) return;
+
+    let correct = items[index].price;
+    let result = document.getElementById('result');
+    let history = document.getElementById('history');
+
+    let arrow = "";
+    if (input > correct) arrow = arrowDown;
+    else if (input < correct) arrow = arrowUp;
+
+    history.innerHTML += `<p>${input.toFixed(2)} zł ${arrow}</p>`;
+
+    if (input === correct) {
+        result.innerHTML = "+ Gratulacje! Możesz przejść do następnego produktu.";
+        document.getElementById('prevBtn').style.display = 'inline-block';
+        document.getElementById('nextBtn').style.display = 'inline-block';
+        return;
+    }
+
+    lives[index]--;
+    document.getElementById('life').innerHTML = `${lives[index]}/6`;
+
+    if (lives[index] <= 0) {
+        result.innerHTML = `Koniec prób. Prawidłowa cena: ${correct.toFixed(2)} zł`;
+        document.getElementById('prevBtn').style.display = 'inline-block';
+        document.getElementById('nextBtn').style.display = 'inline-block';
+    }
+}
+</script>
+</body>
+</html>
